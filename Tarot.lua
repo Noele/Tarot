@@ -276,8 +276,8 @@ SLASH_Tarot1 = "/Tarot";
 --- add "party" to say a short line about the card in /p
 function Tarot_SlashCommand(args)
     if(string.lower(args) == "reverse") then
-        TarotDB.ReverseEnabled = true
-        print("Reversed Cards Enabled")
+        TarotDB.ReverseEnabled = not TarotDB.ReverseEnabled
+        print("Reversed Cards Toggled")
         return
     end
     if(string.find(string.lower(args), "say") and string.find(string.lower(args), "party")) then
