@@ -1,86 +1,95 @@
+TarotDB = TarotDB or {}
+TarotDB.ReverseEnabled = TarotDB.ReverseEnabled or false
+
 local Cards = {
-    {CardName = "The Fool", FileLocation = "00-TheFool", Quip = "*chuckle* Yeah, makes sense."},
-    {CardName = "The Magician", FileLocation = "01-TheMagician", Quip = "You've got the power."},
-    {CardName = "The High Priestess", FileLocation = "02-TheHighPriestess", Quip = "Trust your intuition."},
-    {CardName = "The Empress", FileLocation = "03-TheEmpress", Quip = "Nurture your dreams."},
-    {CardName = "The Emperor", FileLocation = "04-TheEmperor", Quip = "Time to take charge."},
-    {CardName = "The Hierophant", FileLocation = "05-TheHierophant", Quip = "Tradition has its place."},
-    {CardName = "The Lovers", FileLocation = "06-TheLovers", Quip = "Something tempting you?"},
-    {CardName = "The Chariot", FileLocation = "07-TheChariot", Quip = "Whatever you're after, get it."},
-    {CardName = "Strength", FileLocation = "08-Strength", Quip = "Courage will see you through."},
-    {CardName = "The Hermit", FileLocation = "09-TheHermit", Quip = "You've got some soul searching to do."},
-    {CardName = "Wheel of Fortune", FileLocation = "10-WheelOfFortune", Quip = "The tides are turning."},
-    {CardName = "Justice", FileLocation = "11-Justice", Quip = "Balance is key."},
-    {CardName = "The Hanged Man", FileLocation = "12-TheHangedMan", Quip = "Just let it go."},
-    {CardName = "Death", FileLocation = "13-Death", Quip = "Embrace the change."},
-    {CardName = "Temperance", FileLocation = "14-Temperance", Quip = "Find your balance."},
-    {CardName = "The Devil", FileLocation = "15-TheDevil", Quip = "What holds you back?"},
-    {CardName = "The Tower", FileLocation = "16-TheTower", Quip = "Brace for impact."},
-    {CardName = "The Star", FileLocation = "17-TheStar", Quip = "Look on the bright side!"},
-    {CardName = "The Moon", FileLocation = "18-TheMoon", Quip = "Things aren't what they seem."},
-    {CardName = "The Sun", FileLocation = "19-TheSun", Quip = "Joy is on the horizon."},
-    {CardName = "Judgment", FileLocation = "20-Judgement", Quip = "You could probably use some."},
-    {CardName = "The World", FileLocation = "21-TheWorld", Quip = "You've reached your goal."},
 
-    {CardName = "Ace of Wands", FileLocation = "Wands01", Quip = "A spark of inspiration."},
-    {CardName = "Two of Wands", FileLocation = "Wands02", Quip = "Plan your next move."},
-    {CardName = "Three of Wands", FileLocation = "Wands03", Quip = "Your efforts are paying off."},
-    {CardName = "Four of Wands", FileLocation = "Wands04", Quip = "Celebrate your achievements."},
-    {CardName = "Five of Wands", FileLocation = "Wands05", Quip = "Prepare for competition."},
-    {CardName = "Six of Wands", FileLocation = "Wands06", Quip = "Victory is yours!"},
-    {CardName = "Seven of Wands", FileLocation = "Wands07", Quip = "Stand your ground."},
-    {CardName = "Eight of Wands", FileLocation = "Wands08", Quip = "Swift action is needed."},
-    {CardName = "Nine of Wands", FileLocation = "Wands09", Quip = "You've come a long way."},
-    {CardName = "Ten of Wands", FileLocation = "Wands10", Quip = "Burdens are weighing you down."},
-    {CardName = "Page of Wands", FileLocation = "Wands11", Quip = "Excitement is in the air."},
-    {CardName = "Knight of Wands", FileLocation = "Wands12", Quip = "Charge forward!"},
-    {CardName = "Queen of Wands", FileLocation = "Wands13", Quip = "Confidence is your ally."},
-    {CardName = "King of Wands", FileLocation = "Wands14", Quip = "Lead with vision."},
+    -- Major Arcana
+    {CardName = "The Fool", FileLocation = "00-TheFool", Quip = "*chuckle* Yeah, makes sense.", Description = "The Fool symbolizes new beginnings, spontaneity, and a leap of faith. It encourages embracing the unknown with an open heart and a sense of wonder. This card often represents innocence, potential, and the freedom that comes with taking risks.", ReversedDescription = "In reverse, The Fool signifies recklessness, naivety, and poor judgment. It suggests hesitation or a lack of direction, urging caution against impulsive decisions. This card warns of the dangers of being unprepared and encourages careful planning before taking risks.", ReversedQuip = "Whoa, slow down! That's a bit reckless."},
+    {CardName = "The Magician", FileLocation = "01-TheMagician", Quip = "You've got the power.", Description = "The Magician is a card of manifestation, personal power, and resourcefulness. It signifies the ability to turn ideas into reality through skill and determination. This card represents mastery over the elements and a reminder that you have all the tools needed to succeed.", ReversedDescription = "In reverse, The Magician indicates manipulation, deception, and misuse of power. It warns against using skills for selfish or dishonest purposes. This card encourages reflection on intentions and the need for ethical considerations in your actions.", ReversedQuip = "Careful! Power can corrupt."},
+    {CardName = "The High Priestess", FileLocation = "02-TheHighPriestess", Quip = "Trust your intuition.", Description = "The High Priestess represents intuition, mystery, and the subconscious mind. She embodies wisdom and inner knowledge, guiding you to look beyond the surface and trust your instincts. This card invites you to explore hidden truths and pay attention to spiritual insights.", ReversedDescription = "In reverse, The High Priestess signifies a disconnect from intuition, secrets, or blocked feelings. It suggests ignoring inner guidance and possibly relying too much on external opinions. This card encourages reconnecting with your inner self and seeking clarity.", ReversedQuip = "Lost touch with your gut feeling?"},
+    {CardName = "The Empress", FileLocation = "03-TheEmpress", Quip = "Nurture your dreams.", Description = "The Empress symbolizes fertility, nurturing, and creativity. She is the mother figure, representing abundance, growth, and a connection to nature. This card encourages you to embrace your feminine energy, care for others, and cultivate beauty and harmony in your surroundings.", ReversedDescription = "In reverse, The Empress indicates stagnation, neglect, or over-dependence. It warns against being overly protective or smothering, as well as neglecting your own needs. This card suggests finding balance in nurturing yourself and others.", ReversedQuip = "Too much or too little nurturing, huh?"},
+    {CardName = "The Emperor", FileLocation = "04-TheEmperor", Quip = "Time to take charge.", Description = "The Emperor signifies authority, structure, and stability. He is the father figure, representing leadership, order, and control. This card advises taking responsibility and using logic and discipline to achieve your goals. It reminds you to be firm but fair in your decision-making.", ReversedDescription = "In reverse, The Emperor symbolizes tyranny, rigidity, and misuse of power. It suggests a lack of control or authority, leading to chaos or rebellion. This card encourages questioning the balance of power and finding healthy boundaries.", ReversedQuip = "Looks like someone lost control."},
+    {CardName = "The Hierophant", FileLocation = "05-TheHierophant", Quip = "Tradition has its place.", Description = "The Hierophant represents tradition, spiritual guidance, and conformity. It symbolizes the importance of learning, wisdom, and religious or social structures. This card encourages following established systems or beliefs, seeking spiritual support, and respecting societal norms.", ReversedDescription = "In reverse, The Hierophant indicates rebellion against tradition, nonconformity, or a rejection of established systems. It suggests seeking your own path or questioning outdated beliefs. This card encourages individual exploration and the pursuit of personal truths.", ReversedQuip = "Breaking free from tradition, are we?"},
+    {CardName = "The Lovers", FileLocation = "06-TheLovers", Quip = "Something tempting you?", Description = "The Lovers card symbolizes love, harmony, and deep connections. It represents both romantic and personal choices, encouraging you to consider what aligns with your values. This card is about unity, mutual respect, and the balance between desire and moral responsibility.", ReversedDescription = "In reverse, The Lovers signifies disharmony, imbalance, or difficult choices. It suggests miscommunication or conflict in relationships and warns against making decisions based purely on desire. This card encourages addressing underlying issues to restore balance.", ReversedQuip = "Things getting a bit messy in love?"},
+    {CardName = "The Chariot", FileLocation = "07-TheChariot", Quip = "Whatever you're after, get it.", Description = "The Chariot signifies determination, control, and overcoming obstacles. It represents victory through willpower and focus, driving forward with confidence despite challenges. This card encourages you to stay disciplined and harness your energy to achieve success.", ReversedDescription = "In reverse, The Chariot indicates a loss of control, lack of direction, or scattered energy. It suggests being pulled in different directions, leading to frustration or failure. This card encourages regaining focus and reassessing your goals for clarity.", ReversedQuip = "Lost the steering wheel, huh?"},
+    {CardName = "Strength", FileLocation = "08-Strength", Quip = "Courage will see you through.", Description = "Strength represents courage, compassion, and inner resilience. It symbolizes the ability to control one's emotions and act with patience and kindness in difficult situations. This card encourages you to tap into your inner strength to face challenges with grace and calm.", ReversedDescription = "In reverse, Strength signifies weakness, insecurity, or self-doubt. It suggests a struggle to assert oneself or a lack of confidence in facing challenges. This card encourages finding your inner courage and addressing feelings of vulnerability.", ReversedQuip = "Feeling a bit fragile, are we?"},
+    {CardName = "The Hermit", FileLocation = "09-TheHermit", Quip = "You've got some soul searching to do.", Description = "The Hermit symbolizes introspection, solitude, and spiritual enlightenment. It suggests a period of withdrawal for self-reflection and seeking wisdom from within. This card encourages you to take time for quiet contemplation and to look inward for answers.", ReversedDescription = "In reverse, The Hermit indicates isolation, loneliness, or avoidance. It suggests withdrawing too much from the outside world, leading to stagnation. This card encourages finding a balance between solitude and social interaction.", ReversedQuip = "Hiding away too much, huh?"},
+    {CardName = "Wheel of Fortune", FileLocation = "10-WheelOfFortune", Quip = "The tides are turning.", Description = "The Wheel of Fortune represents cycles, destiny, and inevitable change. It signifies that life is in constant motion, with both good and bad times. This card encourages you to embrace change, stay adaptable, and trust that the universe will bring balance in time.", ReversedDescription = "In reverse, The Wheel of Fortune signifies bad luck, resistance to change, or feeling stuck in a negative cycle. It suggests clinging to the past and struggling to adapt. This card encourages breaking free from old patterns and embracing the flow of life.", ReversedQuip = "Stuck in a loop, are we?"},
+    {CardName = "Justice", FileLocation = "11-Justice", Quip = "Balance is key.", Description = "Justice symbolizes fairness, truth, and law. It represents accountability and the importance of making just decisions based on facts. This card encourages you to act with integrity, weigh all options carefully, and understand the consequences of your actions.", ReversedDescription = "In reverse, Justice signifies dishonesty, unfairness, or lack of accountability. It suggests a skewed perspective or biased judgment in decisions. This card encourages introspection and the need to reevaluate choices for fairness.", ReversedQuip = "Things are a bit out of whack, huh?"},
+    {CardName = "The Hanged Man", FileLocation = "12-TheHangedMan", Quip = "Just let it go.", Description = "The Hanged Man represents surrender, perspective, and sacrifice. It signifies the need to let go of control and allow things to unfold naturally. This card encourages looking at situations from a new angle, practicing patience, and accepting delays as part of the journey.", ReversedDescription = "In reverse, The Hanged Man signifies delays, resistance to change, or feeling stuck. It suggests avoiding necessary sacrifices and an unwillingness to see things from a different perspective. This card encourages embracing change rather than resisting it.", ReversedQuip = "Still hanging on, are we?"},
+    {CardName = "Death", FileLocation = "13-Death", Quip = "Embrace the change.", Description = "Death represents transformation, endings, and new beginnings. It signifies the closure of one chapter and the rebirth of another. This card encourages embracing change, letting go of what no longer serves you, and allowing space for growth and renewal.", ReversedDescription = "In reverse, Death signifies resistance to change, stagnation, or fear of the unknown. It suggests clinging to the past and avoiding necessary transitions. This card encourages acknowledging the need for transformation and accepting that endings pave the way for new beginnings.", ReversedQuip = "Still holding on, huh? Let it go."},
+    {CardName = "Temperance", FileLocation = "14-Temperance", Quip = "Find your balance.", Description = "Temperance symbolizes balance, moderation, and harmony. It represents the blending of opposites to create equilibrium in your life. This card encourages patience, adaptability, and the careful consideration of all aspects to find the right path forward.", ReversedDescription = "In reverse, Temperance signifies imbalance, extremes, or lack of harmony. It suggests overindulgence or a struggle to find moderation in life. This card encourages reassessing priorities and restoring balance to avoid chaos.", ReversedQuip = "Things are a bit out of sync, huh?"},
+    {CardName = "The Devil", FileLocation = "15-TheDevil", Quip = "What holds you back?", Description = "The Devil represents temptation, materialism, and self-imposed limitations. It signifies being trapped by negative patterns or unhealthy attachments. This card encourages you to recognize what's holding you back and take steps to break free from destructive influences.", ReversedDescription = "In reverse, The Devil signifies liberation, breaking free from constraints, and overcoming addiction. It suggests recognizing and confronting your fears and temptations. This card encourages embracing personal power and making healthier choices.", ReversedQuip = "Looks like you're breaking free!"},
+    {CardName = "The Tower", FileLocation = "16-TheTower", Quip = "Brace for impact.", Description = "The Tower symbolizes sudden upheaval, destruction, and revelation. It represents a dramatic change that breaks down old structures and beliefs. This card encourages accepting chaos as a necessary force for transformation and personal growth, clearing the way for a new foundation.", ReversedDescription = "In reverse, The Tower indicates avoiding disaster, fear of change, or resistance to necessary upheaval. It suggests lingering in a broken situation rather than embracing the opportunity for renewal. This card encourages letting go of fear to facilitate growth.", ReversedQuip = "Trying to dodge a bullet, huh?"},
+    {CardName = "The Star", FileLocation = "17-TheStar", Quip = "Look on the bright side!", Description = "The Star represents hope, inspiration, and spiritual guidance. It symbolizes renewal and faith in the future after a difficult time. This card encourages you to remain optimistic, trust in your dreams, and stay connected to your higher self for healing and clarity.", ReversedDescription = "In reverse, The Star signifies a lack of faith, despair, or feeling lost. It suggests losing sight of your dreams or being overwhelmed by negativity. This card encourages finding hope and reconnecting with your aspirations to regain clarity.", ReversedQuip = "Feeling a bit hopeless, are we?"},
+    {CardName = "The Moon", FileLocation = "18-TheMoon", Quip = "Things aren't what they seem.", Description = "The Moon represents illusion, intuition, and the subconscious. It signifies confusion or uncertainty, where things are not as they appear. This card encourages you to trust your instincts and explore your inner emotions while being cautious of deception or misunderstandings.", ReversedDescription = "In reverse, The Moon signifies clarity, truth, and overcoming fears. It suggests uncovering hidden truths and dispelling illusions. This card encourages confronting what’s been obscured and finding clarity in your situation.", ReversedQuip = "Looks like the fog is lifting!"},
+    {CardName = "The Sun", FileLocation = "19-TheSun", Quip = "Joy is on the horizon.", Description = "The Sun symbolizes success, positivity, and vitality. It represents clarity, enlightenment, and a joyful sense of accomplishment. This card encourages you to embrace happiness, share your light with others, and take full advantage of the energy and opportunities surrounding you.", ReversedDescription = "In reverse, The Sun signifies temporary setbacks, lack of enthusiasm, or feeling overshadowed. It suggests losing sight of positivity or experiencing delays in achieving goals. This card encourages reconnecting with joy and seeking out uplifting influences.", ReversedQuip = "Feeling a bit dim, huh?"},
+    {CardName = "Judgment", FileLocation = "20-Judgement", Quip = "You could probably use some.", Description = "Judgment represents self-reflection, accountability, and rebirth. It symbolizes the need for a final evaluation of past actions to bring closure and personal growth. This card encourages you to take responsibility for your decisions and embrace a new beginning with clarity and purpose.", ReversedDescription = "In reverse, Judgment signifies self-doubt, indecision, or ignoring accountability. It suggests a reluctance to confront past actions or avoid necessary change. This card encourages embracing growth by facing your truths and making amends.", ReversedQuip = "Avoiding responsibility, are we?"},
+    {CardName = "The World", FileLocation = "21-TheWorld", Quip = "You've reached your goal.", Description = "The World represents completion, fulfillment, and achievement. It signifies the successful culmination of a journey or cycle, with the promise of new opportunities ahead. This card encourages celebrating your accomplishments and preparing for the next adventure.", ReversedDescription = "In reverse, The World signifies incomplete cycles, delays, or a feeling of emptiness despite achievements. It suggests being unprepared for the next phase or not fully appreciating past successes. This card encourages reflection on what you've accomplished and readiness for future opportunities.", ReversedQuip = "Still got some unfinished business, huh?"},
 
-    {CardName = "Ace of Cups", FileLocation = "Cups01", Quip = "Emotions are flowing."},
-    {CardName = "Two of Cups", FileLocation = "Cups02", Quip = "A meaningful connection."},
-    {CardName = "Three of Cups", FileLocation = "Cups03", Quip = "Celebrate with friends."},
-    {CardName = "Four of Cups", FileLocation = "Cups04", Quip = "Contemplate your desires."},
-    {CardName = "Five of Cups", FileLocation = "Cups05", Quip = "Focus on what remains."},
-    {CardName = "Six of Cups", FileLocation = "Cups06", Quip = "Nostalgia is calling."},
-    {CardName = "Seven of Cups", FileLocation = "Cups07", Quip = "Dreams versus reality."},
-    {CardName = "Eight of Cups", FileLocation = "Cups08", Quip = "It's time to move on."},
-    {CardName = "Nine of Cups", FileLocation = "Cups09", Quip = "Wishes are coming true."},
-    {CardName = "Ten of Cups", FileLocation = "Cups10", Quip = "Happiness is at hand."},
-    {CardName = "Page of Cups", FileLocation = "Cups11", Quip = "Open your heart."},
-    {CardName = "Knight of Cups", FileLocation = "Cups12", Quip = "Follow your heart."},
-    {CardName = "Queen of Cups", FileLocation = "Cups13", Quip = "Nurturing is your strength."},
-    {CardName = "King of Cups", FileLocation = "Cups14", Quip = "Emotional balance is key."},
+    -- Wands
+    {CardName = "Ace of Wands", FileLocation = "Wands01", Quip = "A spark of inspiration.", Description = "The Ace of Wands represents new beginnings, creativity, and a surge of inspiration. It signifies a fresh idea or opportunity that brings excitement and potential for growth. This card encourages you to seize the moment and pursue your passions with enthusiasm.", ReversedDescription = "In reverse, the Ace of Wands signifies stagnation, lack of direction, or missed opportunities. It suggests a struggle to find inspiration or hesitation to take action. This card encourages you to reconnect with your creative spark and take the initiative to move forward.", ReversedQuip = "Where's that spark gone?"},
+    {CardName = "Two of Wands", FileLocation = "Wands02", Quip = "Plan your next move.", Description = "The Two of Wands symbolizes planning, foresight, and taking decisive action. It represents the early stages of progress, where you've laid the groundwork and are now looking ahead. This card encourages you to make bold choices and take control of your future.", ReversedDescription = "In reverse, the Two of Wands signifies indecision, lack of planning, or missed opportunities. It suggests feeling overwhelmed by choices or being hesitant to take the next step. This card encourages you to clarify your goals and take action rather than remaining stagnant.", ReversedQuip = "Stuck between options?"},
+    {CardName = "Three of Wands", FileLocation = "Wands03", Quip = "Your efforts are paying off.", Description = "The Three of Wands signifies expansion, progress, and the results of your efforts. It represents a time of growth, where the foundations you’ve set are starting to show success. This card encourages you to remain patient, as your hard work is about to pay off.", ReversedDescription = "In reverse, the Three of Wands signifies delays, lack of foresight, or feeling stuck in your progress. It suggests that you may be overlooking opportunities or struggling to see the results of your efforts. This card encourages you to reassess your plans and remain open to new possibilities.", ReversedQuip = "Not seeing the results yet?"},
+    {CardName = "Four of Wands", FileLocation = "Wands04", Quip = "Celebrate your achievements.", Description = "The Four of Wands represents celebration, harmony, and stability. It symbolizes the completion of a phase, bringing a sense of joy and accomplishment. This card encourages you to take time to celebrate your achievements and enjoy the sense of community around you.", ReversedDescription = "In reverse, the Four of Wands signifies instability, lack of support, or conflicts within relationships. It suggests that you may be feeling disconnected or unable to celebrate due to underlying tensions. This card encourages you to address issues in your relationships and seek harmony.", ReversedQuip = "Where's the celebration gone?"},
+    {CardName = "Five of Wands", FileLocation = "Wands05", Quip = "Prepare for competition.", Description = "The Five of Wands symbolizes conflict, competition, and challenges. It represents a period of struggle, where different opinions or obstacles create tension. This card encourages you to stand your ground and work through difficulties with patience and strategy.", ReversedDescription = "In reverse, the Five of Wands signifies avoidance of conflict, lack of challenges, or settling for complacency. It suggests a reluctance to engage or confront issues, potentially leading to unresolved tensions. This card encourages you to face challenges head-on for growth.", ReversedQuip = "Avoiding the fight?"},
+    {CardName = "Six of Wands", FileLocation = "Wands06", Quip = "Victory is yours!", Description = "The Six of Wands represents victory, recognition, and public success. It symbolizes the achievement of goals and being celebrated for your accomplishments. This card encourages you to enjoy your moment of triumph and be proud of your hard-earned success.", ReversedDescription = "In reverse, the Six of Wands signifies failure, lack of recognition, or feeling unappreciated. It suggests that despite your efforts, you may feel overlooked or defeated. This card encourages you to reflect on your achievements and recognize your own worth, even if others don’t.", ReversedQuip = "Not feeling the love?"},
+    {CardName = "Seven of Wands", FileLocation = "Wands07", Quip = "Stand your ground.", Description = "The Seven of Wands symbolizes defense, perseverance, and standing up for yourself. It represents a situation where you must protect your position or beliefs from opposition. This card encourages you to hold your ground and face challenges with confidence and resilience.", ReversedDescription = "In reverse, the Seven of Wands signifies giving up, feeling overwhelmed, or lacking confidence. It suggests a struggle to maintain your position or beliefs in the face of opposition. This card encourages you to reassess your defenses and find the courage to stand tall.", ReversedQuip = "Feeling a bit wobbly?"},
+    {CardName = "Eight of Wands", FileLocation = "Wands08", Quip = "Swift action is needed.", Description = "The Eight of Wands represents rapid movement, progress, and communication. It symbolizes a fast-paced period where things are quickly falling into place. This card encourages you to stay focused and take advantage of the momentum to achieve your goals swiftly.", ReversedDescription = "In reverse, the Eight of Wands signifies delays, obstacles, or miscommunication. It suggests that progress may be hindered, causing frustration. This card encourages you to address any misunderstandings and remain patient as you navigate through the delays.", ReversedQuip = "Things are moving a bit slow?"},
+    {CardName = "Nine of Wands", FileLocation = "Wands09", Quip = "You've come a long way.", Description = "The Nine of Wands symbolizes resilience, determination, and perseverance. It represents a time when you've faced many challenges but are still standing strong. This card encourages you to keep pushing forward despite obstacles, as success is within reach.", ReversedDescription = "In reverse, the Nine of Wands signifies exhaustion, giving up, or feeling overwhelmed by challenges. It suggests a struggle to maintain resilience and a risk of losing hope. This card encourages you to take a step back, recharge, and remember why you started.", ReversedQuip = "Feeling a bit burnt out?"},
+    {CardName = "Ten of Wands", FileLocation = "Wands10", Quip = "Burdens are weighing you down.", Description = "The Ten of Wands represents burdens, responsibility, and hard work. It symbolizes carrying a heavy load, either physically or emotionally, that may be weighing you down. This card encourages you to delegate tasks and seek balance to avoid burnout.", ReversedDescription = "In reverse, the Ten of Wands signifies release, letting go of burdens, or finding balance. It suggests that you may be learning to prioritize and lighten your load. This card encourages you to assess your responsibilities and make adjustments for your well-being.", ReversedQuip = "Looks like you're shedding some weight!"},
+    {CardName = "Page of Wands", FileLocation = "Wands11", Quip = "Excitement is in the air.", Description = "The Page of Wands symbolizes enthusiasm, curiosity, and adventure. It represents the beginning of a new creative project or personal journey filled with excitement. This card encourages you to embrace your youthful energy and explore new opportunities with an open mind.", ReversedDescription = "In reverse, the Page of Wands signifies lack of direction, hesitation, or a reluctance to take risks. It suggests feeling uninspired or unsure about your next steps. This card encourages you to rediscover your passion and take that leap of faith.", ReversedQuip = "Where did your spark go?"},
+    {CardName = "Knight of Wands", FileLocation = "Wands12", Quip = "Charge forward!", Description = "The Knight of Wands represents passion, action, and determination. It symbolizes a fiery, ambitious spirit that’s eager to pursue goals with intensity. This card encourages you to take bold actions and move swiftly toward your objectives, but beware of being too impulsive.", ReversedDescription = "In reverse, the Knight of Wands signifies recklessness, impatience, or a lack of direction. It suggests being overly impulsive or driven by passion without clear focus. This card encourages you to channel your energy wisely and think before you act.", ReversedQuip = "Slow down a bit, cowboy!"},
+    {CardName = "Queen of Wands", FileLocation = "Wands13", Quip = "Confidence is your ally.", Description = "The Queen of Wands represents confidence, independence, and charisma. She symbolizes a strong, determined leader who is unafraid to pursue her goals. This card encourages you to embrace your inner strength, lead with passion, and inspire others with your confidence.", ReversedDescription = "In reverse, the Queen of Wands signifies insecurity, overbearing behavior, or lack of self-confidence. It suggests feeling disconnected from your inner strength or struggling to assert yourself. This card encourages you to find your voice and regain your confidence.", ReversedQuip = "Not feeling so bold today?"},
+    {CardName = "King of Wands", FileLocation = "Wands14", Quip = "Lead with vision.", Description = "The King of Wands represents leadership, vision, and entrepreneurial spirit. He symbolizes a powerful and charismatic figure who leads with confidence and creativity. This card encourages you to take charge of your life and pursue your goals with determination and clear vision.", ReversedDescription = "In reverse, the King of Wands signifies impulsiveness, lack of direction, or misuse of power. It suggests a struggle to maintain leadership or inspire others due to scattered focus. This card encourages you to find clarity and approach your goals with a strategic mindset.", ReversedQuip = "Are you losing sight of your vision?"},
 
-    {CardName = "Ace of Pentacles", FileLocation = "Pentacles01", Quip = "New opportunities await."},
-    {CardName = "Two of Pentacles", FileLocation = "Pentacles02", Quip = "Balance your priorities."},
-    {CardName = "Three of Pentacles", FileLocation = "Pentacles03", Quip = "Teamwork makes the dream work."},
-    {CardName = "Four of Pentacles", FileLocation = "Pentacles04", Quip = "Hold on tight."},
-    {CardName = "Five of Pentacles", FileLocation = "Pentacles05", Quip = "Help is nearby."},
-    {CardName = "Six of Pentacles", FileLocation = "Pentacles06", Quip = "Share the wealth."},
-    {CardName = "Seven of Pentacles", FileLocation = "Pentacles07", Quip = "Patience pays off."},
-    {CardName = "Eight of Pentacles", FileLocation = "Pentacles08", Quip = "Practice makes perfect."},
-    {CardName = "Nine of Pentacles", FileLocation = "Pentacles09", Quip = "Enjoy your success."},
-    {CardName = "Ten of Pentacles", FileLocation = "Pentacles10", Quip = "Legacy and wealth."},
-    {CardName = "Page of Pentacles", FileLocation = "Pentacles11", Quip = "New ventures are on the horizon."},
-    {CardName = "Knight of Pentacles", FileLocation = "Pentacles12", Quip = "Steady progress is key."},
-    {CardName = "Queen of Pentacles", FileLocation = "Pentacles13", Quip = "Nurture your ambitions."},
-    {CardName = "King of Pentacles", FileLocation = "Pentacles14", Quip = "Wealth is your domain."},
+    -- Cups
+    {CardName = "Ace of Cups", FileLocation = "Cups01", Quip = "Emotions are flowing.", Description = "The Ace of Cups represents new emotional beginnings, love, and compassion. It symbolizes the start of a new relationship or deepening emotional bonds. This card encourages you to open your heart, embrace love, and nurture the connections in your life.", ReversedDescription = "In reverse, the Ace of Cups signifies emotional blockage, unfulfilled feelings, or a lack of self-love. It suggests an inability to express emotions or a disconnect from your heart. This card encourages you to address your emotional needs and seek healing before moving forward.", ReversedQuip = "Are you ignoring your feelings?"},
+    {CardName = "Two of Cups", FileLocation = "Cups02", Quip = "A meaningful connection.", Description = "The Two of Cups symbolizes partnership, mutual respect, and harmony. It represents a strong emotional connection, often in romantic relationships, but also in friendships or collaborations. This card encourages you to focus on trust, balance, and unity in your personal connections.", ReversedDescription = "In reverse, the Two of Cups indicates a lack of harmony, disharmony, or imbalance in relationships. It suggests misunderstandings or conflicts that need addressing. This card encourages you to communicate openly to restore balance and connection.", ReversedQuip = "Is your connection feeling off?"},
+    {CardName = "Three of Cups", FileLocation = "Cups03", Quip = "Celebrate with friends.", Description = "The Three of Cups represents celebration, friendship, and community. It symbolizes joy, social gatherings, and shared happiness with loved ones. This card encourages you to appreciate the bonds you share with others and to celebrate life’s special moments with friends.", ReversedDescription = "In reverse, the Three of Cups signifies isolation, loneliness, or a lack of support from friends. It suggests that social circles may be strained or that you may need to reevaluate your connections. This card encourages you to seek genuine friendships and meaningful interactions.", ReversedQuip = "Are you feeling left out?"},
+    {CardName = "Four of Cups", FileLocation = "Cups04", Quip = "Contemplate your desires.", Description = "The Four of Cups symbolizes introspection, contemplation, and dissatisfaction. It represents a time when you may feel emotionally unfulfilled or withdrawn, unsure of what you truly want. This card encourages you to reflect on your feelings and focus on what brings you true joy.", ReversedDescription = "In reverse, the Four of Cups signifies acceptance, clarity, and newfound appreciation for life. It suggests moving past dissatisfaction and recognizing opportunities for growth and joy. This card encourages you to engage with your surroundings and embrace what life offers.", ReversedQuip = "Ready to embrace new opportunities?"},
+    {CardName = "Five of Cups", FileLocation = "Cups05", Quip = "Focus on what remains.", Description = "The Five of Cups represents loss, regret, and disappointment. It symbolizes emotional sorrow, but also the potential for healing and renewal. This card encourages you to shift your focus from what has been lost to what still remains, finding hope in the aftermath of hardship.", ReversedDescription = "In reverse, the Five of Cups signifies moving on, acceptance, and finding closure. It suggests a healing process where you begin to let go of grief and focus on the positive aspects of your life. This card encourages you to embrace new possibilities and emotional recovery.", ReversedQuip = "Time to turn your back on the past?"},
+    {CardName = "Six of Cups", FileLocation = "Cups06", Quip = "Nostalgia is calling.", Description = "The Six of Cups symbolizes nostalgia, innocence, and reconnecting with the past. It represents childhood memories, past relationships, or revisiting old times. This card encourages you to reflect on fond memories and reconnect with the joyful simplicity of the past.", ReversedDescription = "In reverse, the Six of Cups indicates a struggle with letting go of the past or being stuck in nostalgia. It suggests the need to release old patterns or memories that may hinder your growth. This card encourages you to focus on the present and create new experiences.", ReversedQuip = "Are you stuck in the past?"},
+    {CardName = "Seven of Cups", FileLocation = "Cups07", Quip = "Dreams versus reality.", Description = "The Seven of Cups represents choices, illusions, and wishful thinking. It symbolizes a multitude of options, some promising, others deceptive. This card encourages you to discern reality from fantasy, making informed decisions rather than getting lost in daydreams.", ReversedDescription = "In reverse, the Seven of Cups signifies clarity, decisiveness, and a focus on reality. It suggests overcoming confusion and making choices based on practicality rather than wishful thinking. This card encourages you to prioritize your goals and take grounded actions.", ReversedQuip = "Time to get real about your options?"},
+    {CardName = "Eight of Cups", FileLocation = "Cups08", Quip = "It's time to move on.", Description = "The Eight of Cups represents letting go, seeking deeper meaning, and walking away from something unfulfilling. It symbolizes the courage to leave behind what no longer serves you in pursuit of personal growth. This card encourages you to trust your inner guidance and embark on a new journey.", ReversedDescription = "In reverse, the Eight of Cups signifies stagnation, fear of change, or emotional avoidance. It suggests a reluctance to move on or confront unfulfilling situations. This card encourages you to assess what holds you back and take steps toward necessary change.", ReversedQuip = "What's stopping you from moving forward?"},
+    {CardName = "Nine of Cups", FileLocation = "Cups09", Quip = "Wishes are coming true.", Description = "The Nine of Cups symbolizes emotional fulfillment, contentment, and the realization of dreams. It represents a time of joy, satisfaction, and success in personal matters. This card encourages you to celebrate your achievements and relish in the happiness that comes from emotional abundance.", ReversedDescription = "In reverse, the Nine of Cups indicates dissatisfaction, unfulfilled desires, or complacency. It suggests that superficial pleasures may not lead to true happiness. This card encourages you to seek deeper emotional fulfillment rather than relying on materialistic or temporary satisfactions.", ReversedQuip = "Are your wishes just empty hopes?"},
+    {CardName = "Ten of Cups", FileLocation = "Cups10", Quip = "Happiness is at hand.", Description = "The Ten of Cups represents harmony, family, and lasting happiness. It symbolizes emotional fulfillment and the joy of deep, meaningful relationships. This card encourages you to appreciate the love and support around you, fostering strong connections with loved ones.", ReversedDescription = "In reverse, the Ten of Cups signifies disharmony, broken relationships, or unmet emotional needs. It suggests a need to address underlying issues within family or community dynamics. This card encourages you to communicate openly to restore balance and unity in your relationships.", ReversedQuip = "Is your happiness feeling fragile?"},
+    {CardName = "Page of Cups", FileLocation = "Cups11", Quip = "Open your heart.", Description = "The Page of Cups represents creativity, intuition, and emotional openness. It symbolizes the beginnings of new emotional experiences or creative endeavors. This card encourages you to approach life with an open heart, and embrace your imagination. Trust your intuition and be open to new emotional connections and creative ideas.", ReversedDescription = "In reverse, the Page of Cups signifies emotional immaturity, insecurity, or creative blocks. It suggests a fear of vulnerability or a reluctance to express feelings. This card encourages you to confront your fears and allow yourself to be open and authentic in your emotions.", ReversedQuip = "Are you afraid to show your true feelings?"},
+    {CardName = "Knight of Cups", FileLocation = "Cups12", Quip = "Follow your heart.", Description = "The Knight of Cups represents romance, idealism, and emotional pursuit. It symbolizes a person or situation driven by emotions and dreams, often following the heart over logic. This card encourages you to pursue your passions and approach life with a sense of wonder and creativity.", ReversedDescription = "In reverse, the Knight of Cups signifies emotional instability, unrealistic expectations, or being overly idealistic. It suggests a tendency to chase dreams without a clear plan or emotional direction. This card encourages you to ground your emotions and find balance between dreams and reality.", ReversedQuip = "Are you chasing fantasies instead of reality?"},
+    {CardName = "Queen of Cups", FileLocation = "Cups13", Quip = "Nurturing is your strength.", Description = "The Queen of Cups represents compassion, intuition, and emotional maturity. She symbolizes a nurturing figure who is in tune with her emotions and those of others. This card encourages you to be empathetic, caring, and deeply connected to your inner emotional world.", ReversedDescription = "In reverse, the Queen of Cups signifies emotional overwhelm, dependency, or a lack of self-care. It suggests the need to set boundaries and focus on personal well-being. This card encourages you to nurture yourself as you would others and find balance in emotional connections.", ReversedQuip = "Are you neglecting your own needs?"},
+    {CardName = "King of Cups", FileLocation = "Cups14", Quip = "Emotional balance is key.", Description = "The King of Cups represents emotional balance, diplomacy, and wisdom. He symbolizes a person who is calm, compassionate, and in control of their emotions. This card encourages you to maintain emotional stability and lead with kindness and understanding.", ReversedDescription = "In reverse, the King of Cups signifies emotional manipulation, volatility, or a lack of empathy. It suggests issues with controlling emotions or using them to influence others negatively. This card encourages you to work on emotional maturity and address any imbalances in your relationships.", ReversedQuip = "Are your emotions clouding your judgment?"},
 
-    {CardName = "Ace of Swords", FileLocation = "Swords01", Quip = "A new idea is forming."},
-    {CardName = "Two of Swords", FileLocation = "Swords02", Quip = "A difficult choice awaits."},
-    {CardName = "Three of Swords", FileLocation = "Swords03", Quip = "Heartbreak is part of the journey."},
-    {CardName = "Four of Swords", FileLocation = "Swords04", Quip = "Rest and recuperate."},
-    {CardName = "Five of Swords", FileLocation = "Swords05", Quip = "Conflict is brewing."},
-    {CardName = "Six of Swords", FileLocation = "Swords06", Quip = "Moving on to calmer waters."},
-    {CardName = "Seven of Swords", FileLocation = "Swords07", Quip = "Caution is advised."},
-    {CardName = "Eight of Swords", FileLocation = "Swords08", Quip = "Feeling trapped? Look again."},
-    {CardName = "Nine of Swords", FileLocation = "Swords09", Quip = "Worry is your enemy."},
-    {CardName = "Ten of Swords", FileLocation = "Swords10", Quip = "Endings can bring new beginnings."},
-    {CardName = "Page of Swords", FileLocation = "Swords11", Quip = "Stay curious and alert."},
-    {CardName = "Knight of Swords", FileLocation = "Swords12", Quip = "Action is your focus."},
-    {CardName = "Queen of Swords", FileLocation = "Swords13", Quip = "Clarity of thought is vital."},
-    {CardName = "King of Swords", FileLocation = "Swords14", Quip = "Lead with intellect."},
+    -- Pentacles
+    {CardName = "Ace of Pentacles", FileLocation = "Pentacles01", Quip = "New opportunities await.", Description = "The Ace of Pentacles represents new beginnings, prosperity, and material success. It symbolizes a fresh opportunity in the physical realm, whether it’s related to finances, career, or personal growth. This card encourages you to seize opportunities for abundance and stability.", ReversedDescription = "In reverse, the Ace of Pentacles signifies missed opportunities, financial loss, or instability. It suggests that you may be focusing too much on material concerns or neglecting the potential for growth. This card encourages you to reassess your priorities and open yourself to new possibilities.", ReversedQuip = "Are you overlooking new opportunities?"},
+    {CardName = "Two of Pentacles", FileLocation = "Pentacles02", Quip = "Balance your priorities.", Description = "The Two of Pentacles represents balance, adaptability, and juggling multiple responsibilities. It symbolizes the need to manage resources and tasks efficiently. This card encourages you to stay flexible and maintain equilibrium, especially when faced with competing priorities.", ReversedDescription = "In reverse, the Two of Pentacles signifies imbalance, chaos, or being overwhelmed. It suggests difficulties in managing responsibilities or a struggle to find harmony in your life. This card encourages you to simplify your commitments and focus on what truly matters.", ReversedQuip = "Are you feeling overwhelmed?"},
+    {CardName = "Three of Pentacles", FileLocation = "Pentacles03", Quip = "Teamwork makes the dream work.", Description = "The Three of Pentacles symbolizes collaboration, skill development, and teamwork. It represents the importance of working together toward a common goal, often with others who bring different strengths. This card encourages you to focus on cooperation and using your talents to contribute to a larger project.", ReversedDescription = "In reverse, the Three of Pentacles signifies lack of teamwork, poor collaboration, or skill issues. It suggests difficulties in working with others or conflicts arising from differing visions. This card encourages you to communicate openly and seek constructive feedback.", ReversedQuip = "Is collaboration falling short?"},
+    {CardName = "Four of Pentacles", FileLocation = "Pentacles04", Quip = "Hold on tight.", Description = "The Four of Pentacles represents control, security, and material stability. It symbolizes a desire to protect and hold onto what you’ve earned, sometimes leading to possessiveness or fear of loss. This card encourages you to seek balance between financial security and generosity.", ReversedDescription = "In reverse, the Four of Pentacles signifies greed, loss of control, or financial instability. It suggests that your desire to hold on too tightly to material things may lead to stress or conflict. This card encourages you to let go of unnecessary fears and open up to sharing.", ReversedQuip = "Is fear holding you back?"},
+    {CardName = "Five of Pentacles", FileLocation = "Pentacles05", Quip = "Help is nearby.", Description = "The Five of Pentacles represents hardship, financial struggles, and feelings of isolation. It symbolizes a period of difficulty, particularly in material or emotional matters. This card encourages you to seek support, as help and comfort are closer than you think.", ReversedDescription = "In reverse, the Five of Pentacles signifies recovery, improvement, and renewed hope. It suggests overcoming struggles and finding support during tough times. This card encourages you to reach out and accept help from those around you.", ReversedQuip = "Are you ready to accept help?"},
+    {CardName = "Six of Pentacles", FileLocation = "Pentacles06", Quip = "Share the wealth.", Description = "The Six of Pentacles represents generosity, charity, and balance in giving and receiving. It symbolizes the importance of sharing wealth, whether material or emotional, to create harmony. This card encourages you to be kind, giving, and mindful of the needs of others.", ReversedDescription = "In reverse, the Six of Pentacles signifies imbalance in giving and receiving, selfishness, or exploitation. It suggests a need to reevaluate how you handle resources and relationships. This card encourages you to find a more equitable way to support and connect with others.", ReversedQuip = "Are you giving too little or taking too much?"},
+    {CardName = "Seven of Pentacles", FileLocation = "Pentacles07", Quip = "Patience pays off.", Description = "The Seven of Pentacles represents hard work, perseverance, and delayed gratification. It symbolizes the importance of long-term planning and patience as you wait for your efforts to bear fruit. This card encourages you to reflect on your progress and stay dedicated to your goals.", ReversedDescription = "In reverse, the Seven of Pentacles signifies impatience, lack of reward, or feeling stuck. It suggests frustration with progress or a need to reassess your efforts. This card encourages you to review your strategies and adapt as necessary.", ReversedQuip = "Are you feeling impatient with your progress?"},
+    {CardName = "Eight of Pentacles", FileLocation = "Pentacles08", Quip = "Practice makes perfect.", Description = "The Eight of Pentacles represents mastery, diligence, and the pursuit of excellence. It symbolizes a time of focused effort, where honing your skills and working hard will lead to success. This card encourages you to commit to learning, growth, and continuous improvement.", ReversedDescription = "In reverse, the Eight of Pentacles signifies lack of focus, poor workmanship, or stagnation. It suggests that you may be cutting corners or not applying yourself fully. This card encourages you to recommit to your goals and take pride in your work.", ReversedQuip = "Are you cutting corners?"},
+    {CardName = "Nine of Pentacles", FileLocation = "Pentacles09", Quip = "Enjoy your success.", Description = "The Nine of Pentacles represents self-sufficiency, luxury, and material success. It symbolizes enjoying the fruits of your labor and taking pride in what you’ve achieved. This card encourages you to appreciate your accomplishments and savor the abundance you’ve earned.", ReversedDescription = "In reverse, the Nine of Pentacles signifies dependence, insecurity, or feeling unworthy of success. It suggests that you may be struggling to enjoy your achievements or relying too heavily on others. This card encourages you to cultivate self-confidence and celebrate your success.", ReversedQuip = "Are you struggling to appreciate your success?"},
+    {CardName = "Ten of Pentacles", FileLocation = "Pentacles10", Quip = "Legacy and wealth.", Description = "The Ten of Pentacles represents wealth, family, and long-term stability. It symbolizes generational prosperity, security, and the joy of shared success. This card encourages you to focus on building a lasting legacy and fostering strong connections with loved ones.", ReversedDescription = "In reverse, the Ten of Pentacles signifies instability, broken family ties, or financial loss. It suggests a need to reassess your values and relationships, particularly regarding legacy and support. This card encourages you to nurture familial connections and ensure security.", ReversedQuip = "Are family ties fraying?"},
+    {CardName = "Page of Pentacles", FileLocation = "Pentacles11", Quip = "New ventures are on the horizon.", Description = "The Page of Pentacles represents ambition, opportunity, and curiosity in the material world. It symbolizes the start of a new venture or learning process related to finances, career, or personal goals. This card encourages you to be open to new possibilities and dedicated to your growth.", ReversedDescription = "In reverse, the Page of Pentacles signifies lack of focus, missed opportunities, or immaturity. It suggests that you may be hesitant to pursue new ventures or lack the commitment needed for success. This card encourages you to embrace ambition and take practical steps toward your goals.", ReversedQuip = "Are you hesitating to take action?"},
+    {CardName = "Knight of Pentacles", FileLocation = "Pentacles12", Quip = "Steady progress is key.", Description = "The Knight of Pentacles represents diligence, responsibility, and slow but steady progress. It symbolizes a determined, methodical approach to achieving goals, with a focus on long-term success. This card encourages you to stay patient and continue putting in the effort, as it will pay off over time.", ReversedDescription = "In reverse, the Knight of Pentacles signifies stagnation, laziness, or lack of direction. It suggests that you may be avoiding responsibilities or failing to follow through. This card encourages you to regain your focus and recommit to your tasks.", ReversedQuip = "Are you losing your direction?"},
+    {CardName = "Queen of Pentacles", FileLocation = "Pentacles13", Quip = "Nurture your ambitions.", Description = "The Queen of Pentacles represents nurturing, practicality, and abundance. She symbolizes a figure who cares for both the material and emotional aspects of life, creating a sense of stability and comfort. This card encourages you to nurture your ambitions and take care of yourself and those around you.", ReversedDescription = "In reverse, the Queen of Pentacles signifies neglect, insecurity, or lack of practicality. It suggests that you may be focusing too much on others at the expense of your own needs. This card encourages you to find a balance between nurturing yourself and those around you.", ReversedQuip = "Are you neglecting your own needs?"},
+    {CardName = "King of Pentacles", FileLocation = "Pentacles14", Quip = "Wealth is your domain.", Description = "The King of Pentacles represents security, success, and financial mastery. He symbolizes a person who has achieved material wealth and stability through hard work and wise decisions. This card encourages you to take control of your resources and lead with a steady hand, ensuring prosperity for yourself and others.", ReversedDescription = "In reverse, the King of Pentacles signifies financial instability, greed, or mismanagement. It suggests that you may be struggling to maintain control over your resources or prioritizing wealth over relationships. This card encourages you to reflect on your values and practice generosity in your dealings.", ReversedQuip = "Are you prioritizing wealth over relationships?"},
+
+    -- Swords
+    {CardName = "Ace of Swords", FileLocation = "Swords01", Quip = "A new idea is forming.", Description = "The Ace of Swords represents clarity, breakthroughs, and a surge of intellectual energy. It signifies a moment where truth and understanding emerge, cutting through confusion or uncertainty. This card indicates that a new idea or solution is about to present itself, often accompanied by a sense of mental clarity.", ReversedQuip = "Confusion clouds your mind.", ReversedDescription = "The Ace of Swords reversed signifies a lack of clarity or understanding, leading to confusion and misguided thoughts. It may suggest that an important idea or opportunity is being overlooked or that your judgment is clouded."},
+    {CardName = "Two of Swords", FileLocation = "Swords02", Quip = "A difficult choice awaits.", Description = "The Two of Swords reflects a state of indecision, where a choice must be made but all options seem equally balanced. It often represents a stalemate or a need for difficult decisions, where emotions are set aside in favor of logic and careful contemplation.", ReversedQuip = "Avoidance leads to stagnation.", ReversedDescription = "The Two of Swords reversed indicates a refusal to make decisions or confront issues. It suggests that by avoiding choices, you may be prolonging conflict or missing opportunities for growth."},
+    {CardName = "Three of Swords", FileLocation = "Swords03", Quip = "Heartbreak is part of the journey.", Description = "The Three of Swords symbolizes heartache, grief, and emotional pain. It is often associated with feelings of betrayal or loss, yet it also represents the painful truths that must be confronted to move forward. The card encourages facing sorrow to heal and grow stronger.", ReversedQuip = "Avoiding pain prolongs suffering.", ReversedDescription = "The Three of Swords reversed signifies healing and the potential for moving past heartache. It can suggest that you are beginning to confront emotional pain and are on the path to recovery."},
+    {CardName = "Four of Swords", FileLocation = "Swords04", Quip = "Rest and recuperate.", Description = "The Four of Swords represents a need for rest, recovery, and contemplation. After a period of stress or struggle, this card suggests taking time to retreat and reflect. It encourages healing, both physically and mentally, before moving forward again.", ReversedQuip = "Burnout is imminent.", ReversedDescription = "The Four of Swords reversed indicates a refusal to rest or a feeling of being unable to take a break. It may suggest that you're pushing yourself too hard and neglecting the need for recuperation."},
+    {CardName = "Five of Swords", FileLocation = "Swords05", Quip = "Conflict is brewing.", Description = "The Five of Swords signifies conflict, defeat, or hollow victories. It may represent situations where the cost of winning outweighs the reward, or where underhanded tactics have led to success. This card warns against pride and encourages reflection on the consequences of conflict.", ReversedQuip = "Letting go leads to resolution.", ReversedDescription = "The Five of Swords reversed represents a desire to reconcile after conflict. It suggests that letting go of grudges and focusing on resolution can lead to peace and harmony."},
+    {CardName = "Six of Swords", FileLocation = "Swords06", Quip = "Moving on to calmer waters.", Description = "The Six of Swords suggests a transition or journey away from difficulties. It represents leaving behind conflict or turmoil in favor of peace and clarity. This card encourages embracing change and moving toward a more stable and peaceful situation, often with the help of others.", ReversedQuip = "Staying stuck in turmoil.", ReversedDescription = "The Six of Swords reversed signifies an inability to move on from difficulties. It suggests resistance to change and the need to confront unresolved issues."},
+    {CardName = "Seven of Swords", FileLocation = "Swords07", Quip = "Caution is advised.", Description = "The Seven of Swords is a card of strategy, deception, or stealth. It often indicates that someone is acting secretly or using cunning to achieve their goals. This card encourages careful planning and caution, warning against dishonesty and encouraging awareness of one’s actions.", ReversedQuip = "Deceit is exposed.", ReversedDescription = "The Seven of Swords reversed indicates that secrets may be revealed or that deceptive tactics are being uncovered. It encourages transparency and honesty to regain trust."},
+    {CardName = "Eight of Swords", FileLocation = "Swords08", Quip = "Feeling trapped? Look again.", Description = "The Eight of Swords symbolizes feeling trapped or restricted by one’s own thoughts and fears. This card suggests that while the situation may seem dire, the real limitations are self-imposed. It encourages breaking free from mental blockages and finding a way to move forward.", ReversedQuip = "Freedom is within reach.", ReversedDescription = "The Eight of Swords reversed signifies breaking free from limitations. It suggests that you are starting to realize that the barriers you faced were self-imposed and that liberation is possible."},
+    {CardName = "Nine of Swords", FileLocation = "Swords09", Quip = "Worry is your enemy.", Description = "The Nine of Swords represents anxiety, fear, and sleepless nights. It reflects inner turmoil, where worries or regrets plague the mind. This card advises confronting fears and seeking help to alleviate the emotional distress, rather than letting anxiety spiral out of control.", ReversedQuip = "Facing fears leads to liberation.", ReversedDescription = "The Nine of Swords reversed indicates a release from anxiety and worry. It suggests that facing your fears may lead to healing and a more peaceful state of mind."},
+    {CardName = "Ten of Swords", FileLocation = "Swords10", Quip = "Endings can bring new beginnings.", Description = "The Ten of Swords signifies painful endings, betrayal, or finality. It represents hitting rock bottom, but also the opportunity for new beginnings once the old has been let go. This card encourages acceptance of what has passed and the embrace of future possibilities, no matter how difficult the current situation seems.", ReversedQuip = "Refusing to let go causes stagnation.", ReversedDescription = "The Ten of Swords reversed indicates that you may be resisting the end of a difficult situation. It suggests that holding onto the past may hinder your ability to embrace new beginnings."},
+    {CardName = "Page of Swords", FileLocation = "Swords11", Quip = "Stay curious and alert.", Description = "The Page of Swords represents curiosity, intellect, and youthful energy. This card symbolizes someone who is eager to learn and explore new ideas. It encourages staying sharp, alert, and open-minded, ready to face challenges with a clear and analytical mind.", ReversedQuip = "Naivety can lead to trouble.", ReversedDescription = "The Page of Swords reversed signifies a lack of focus or direction. It suggests that impulsive actions or ideas may lead to conflict or misunderstandings."},
+    {CardName = "Knight of Swords", FileLocation = "Swords12", Quip = "Action is your focus.", Description = "The Knight of Swords signifies action, ambition, and determination. It represents someone who charges forward with focus and energy, sometimes recklessly. This card encourages swift action but warns against acting without considering the consequences.", ReversedQuip = "Impulsiveness may lead to regret.", ReversedDescription = "The Knight of Swords reversed indicates a hasty approach or lack of planning. It suggests that acting too quickly without thinking through the implications may result in negative outcomes."},
+    {CardName = "Queen of Swords", FileLocation = "Swords13", Quip = "Clarity of thought is vital.", Description = "The Queen of Swords represents clear thinking, intellect, and emotional detachment. She is a symbol of fairness, truth, and strong judgment. This card encourages rational decision-making, cutting through emotions to focus on logic and clarity.", ReversedQuip = "Emotional confusion clouds judgment.", ReversedDescription = "The Queen of Swords reversed signifies a lack of clarity and fairness. It suggests that emotions may be interfering with decision-making, leading to bias and confusion."},
+    {CardName = "King of Swords", FileLocation = "Swords14", Quip = "Lead with intellect.", Description = "The King of Swords represents intellect, authority, and clarity of mind. He is a symbol of truth, logic, and fairness, often guiding with wisdom and objective judgment. This card encourages rational decisions and the use of intellect over emotions in problem-solving.", ReversedQuip = "Abuse of power leads to downfall.", ReversedDescription = "The King of Swords reversed indicates a misuse of authority or lack of ethical consideration. It suggests that an overemphasis on logic without compassion may lead to negative consequences."},
 }
 
 --- Returns a random card from "Cards"
@@ -89,12 +98,30 @@ local function GetRandomCard()
     return Cards[randomIndex] -- Return the random card
 end
 
+local function SetGameToolTipScript(frame, text)
+    frame:SetScript("OnEnter", function(self)
+        GameTooltip:SetOwner(self, "ANCHOR_CURSOR")
+
+        for line in text:gmatch("[^%.]+") do
+            local trimmedLine = line:gsub("^%s*(.-)%s*$", "%1") -- Trim whitespace
+            if #trimmedLine > 0 then
+                GameTooltip:AddLine(trimmedLine) -- Add line to tooltip
+            end
+        end
+
+        GameTooltip:Show()
+    end)
+end
+
 --- Frames and textures for the 3 cards to show on screen
 -- LEFT CARD
 local TarotLeftCardFrame = CreateFrame("Frame", "TarotLeftCardFrame", UIParent)
+TarotLeftCardFrame:Hide()
 TarotLeftCardFrame:SetSize(300, 527)
 TarotLeftCardFrame:SetPoint("CENTER", UIParent, "CENTER", -400, 0)
-TarotLeftCardFrame:Hide()
+TarotLeftCardFrame:SetScript("OnLeave", function(self)
+    GameTooltip:Hide()
+end)
 
 local TarotLeftCardFrameTexture = TarotLeftCardFrame:CreateTexture(nil, "ARTWORK")
 TarotLeftCardFrameTexture:SetAllPoints(TarotLeftCardFrame)
@@ -102,9 +129,12 @@ TarotLeftCardFrameTexture:SetTexCoord(0, 1, 0, 1)
 
 -- MIDDLE CARD
 local TarotMiddleCardFrame = CreateFrame("Frame", "TarotSingleCardFrame", UIParent)
+TarotMiddleCardFrame:Hide()
 TarotMiddleCardFrame:SetSize(300, 527)
 TarotMiddleCardFrame:SetPoint("CENTER", UIParent, "CENTER")
-TarotMiddleCardFrame:Hide()
+TarotMiddleCardFrame:SetScript("OnLeave", function(self)
+    GameTooltip:Hide()
+end)
 
 local TarotMiddleCardFrameTexture = TarotMiddleCardFrame:CreateTexture(nil, "ARTWORK")
 TarotMiddleCardFrameTexture:SetAllPoints(TarotMiddleCardFrame)
@@ -112,9 +142,12 @@ TarotMiddleCardFrameTexture:SetTexCoord(0, 1, 0, 1)
 
 -- RIGHT CARD
 local TarotRightCardFrame = CreateFrame("Frame", "TarotRightCardFrame", UIParent)
+TarotLeftCardFrame:Hide()
 TarotRightCardFrame:SetSize(300, 527)
 TarotRightCardFrame:SetPoint("CENTER", UIParent, "CENTER", 400, 0)
-TarotRightCardFrame:Hide()
+TarotRightCardFrame:SetScript("OnLeave", function(self)
+    GameTooltip:Hide()
+end)
 
 local TarotRightCardFrameTexture = TarotRightCardFrame:CreateTexture(nil, "ARTWORK")
 TarotRightCardFrameTexture:SetAllPoints(TarotRightCardFrame)
@@ -122,13 +155,29 @@ TarotRightCardFrameTexture:SetTexCoord(0, 1, 0, 1)
 
 --- Generates a single card, sets the texture, and displays it
 function GenerateSingleCard(say, party)
+    local reversed = false
+    if(TarotDB.ReverseEnabled) then
+        reversed = math.random() < 0.5
+    end
     local card = GetRandomCard()
     TarotMiddleCardFrameTexture:SetTexture("Interface\\AddOns\\Tarot\\res\\Cards\\" .. card.FileLocation .. ".png")
     TarotMiddleCardFrame:Show()
-    if say then
-        SendChatMessage("I draw " .. card.CardName .. ", " .. card.Quip, "SAY")
-    elseif party then
-        SendChatMessage("I draw " .. card.CardName .. ", " .. card.Quip, "PARTY")
+    if(reversed) then
+        TarotMiddleCardFrameTexture:SetTexCoord(1, 0, 1, 0)
+        SetGameToolTipScript(TarotMiddleCardFrame, card.ReversedDescription)
+        if say then
+            SendChatMessage("I draw " .. card.CardName .. ", " .. card.ReversedQuip, "SAY")
+        elseif party then
+            SendChatMessage("I draw " .. card.CardName .. ", " .. card.ReversedQuip, "PARTY")
+        end
+    else
+        TarotMiddleCardFrameTexture:SetTexCoord(0, 1, 0, 1)
+        SetGameToolTipScript(TarotMiddleCardFrame, card.Description)
+        if say then
+            SendChatMessage("I draw " .. card.CardName .. ", " .. card.Quip, "SAY")
+        elseif party then
+            SendChatMessage("I draw " .. card.CardName .. ", " .. card.Quip, "PARTY")
+        end
     end
 end
 
@@ -143,21 +192,79 @@ TarotMiddleCardFrame:SetScript("OnMouseDown", HideAllCards)
 TarotLeftCardFrame:SetScript("OnMouseDown", HideAllCards)
 
 --- Generates 3 cards, sets the textures, and displays them
+--- This function is really dirty, but I had a bunch of issues trying to clean it up
+--- TO:DO Clean this up
 function GenerateThreeCards(say, party)
-    local drawnCards = {GetRandomCard(), GetRandomCard(), GetRandomCard()}
+    local drawnCards = {}
+    local cardSet = {}
+
+    -- Draw cards until we have three unique ones
+    while #drawnCards < 3 do
+        local newCard = GetRandomCard()
+        if not cardSet[newCard.CardName] ~= nil then
+            table.insert(drawnCards, newCard)
+            cardSet[newCard.CardName] = true
+        end
+    end
+
+    local reversed = {math.random() < 0.5, math.random() < 0.5, math.random() < 0.5}
+    if(TarotDB.ReverseEnabled) then
+        if(reversed[1]) then
+            TarotLeftCardFrameTexture:SetTexCoord(1, 0, 1, 0)
+            SetGameToolTipScript(TarotLeftCardFrame, drawnCards[1].ReversedDescription)
+        else
+            TarotLeftCardFrameTexture:SetTexCoord(0, 1, 0, 1)
+            SetGameToolTipScript(TarotLeftCardFrame, drawnCards[1].Description)
+        end
+
+        if(reversed[2]) then
+            TarotMiddleCardFrameTexture:SetTexCoord(1, 0, 1, 0)
+            SetGameToolTipScript(TarotMiddleCardFrame, drawnCards[2].ReversedDescription)
+        else
+            TarotMiddleCardFrameTexture:SetTexCoord(0, 1, 0, 1)
+            SetGameToolTipScript(TarotMiddleCardFrame, drawnCards[2].Description)
+        end
+
+        if(reversed[3]) then
+            TarotRightCardFrameTexture:SetTexCoord(1, 0, 1, 0)
+            SetGameToolTipScript(TarotRightCardFrame, drawnCards[3].ReversedDescription)
+        else
+            TarotRightCardFrameTexture:SetTexCoord(0, 1, 0, 1)
+            SetGameToolTipScript(TarotRightCardFrame, drawnCards[3].Description)
+        end
+
+    else
+        TarotLeftCardFrameTexture:SetTexCoord(0, 1, 0, 1)
+        SetGameToolTipScript(TarotLeftCardFrame, drawnCards[1].Description)
+        TarotMiddleCardFrameTexture:SetTexCoord(0, 1, 0, 1)
+        SetGameToolTipScript(TarotMiddleCardFrame, drawnCards[2].Description)
+        TarotRightCardFrameTexture:SetTexCoord(0, 1, 0, 1)
+        SetGameToolTipScript(TarotRightCardFrame, drawnCards[3].Description)
+    end
+
+    -- Set textures for the drawn cards
     TarotLeftCardFrameTexture:SetTexture("Interface\\AddOns\\Tarot\\res\\Cards\\" .. drawnCards[1].FileLocation .. ".png")
     TarotMiddleCardFrameTexture:SetTexture("Interface\\AddOns\\Tarot\\res\\Cards\\" .. drawnCards[2].FileLocation .. ".png")
     TarotRightCardFrameTexture:SetTexture("Interface\\AddOns\\Tarot\\res\\Cards\\" .. drawnCards[3].FileLocation .. ".png")
 
+    -- Show the card frames
     TarotLeftCardFrame:Show()
     TarotMiddleCardFrame:Show()
     TarotRightCardFrame:Show()
 
-    for _, card in pairs(drawnCards) do
+    -- Send messages for the drawn cards
+    for i, card in pairs(drawnCards) do
+        print(card.CardName)
+        local message = ""
+        if(reversed[i]) then
+            message = "I draw reversed " .. card.CardName .. ", " .. card.ReversedQuip
+        else
+            message = "I draw " .. card.CardName .. ", " .. card.Quip
+        end
         if say then
-            SendChatMessage("I draw " .. card.CardName .. ", " .. card.Quip, "SAY")
+            SendChatMessage(message, "SAY")
         elseif party then
-            SendChatMessage("I draw " .. card.CardName .. ", " .. card.Quip, "PARTY")
+            SendChatMessage(message, "PARTY")
         end
     end
 end
@@ -168,6 +275,11 @@ SLASH_Tarot1 = "/Tarot";
 --- add "say", to say a short line about the card in /say
 --- add "party" to say a short line about the card in /p
 function Tarot_SlashCommand(args)
+    if(string.lower(args) == "reverse") then
+        TarotDB.ReverseEnabled = true
+        print("Reversed Cards Enabled")
+        return
+    end
     if(string.find(string.lower(args), "say") and string.find(string.lower(args), "party")) then
         print("Cant output to party and say at the same time.")
         return

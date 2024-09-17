@@ -1,7 +1,7 @@
 ## Interface: 30403
 ## Title : Tarot
 ## Notes: Tarot Card Readings In Game
-## Author: ZoeyBee
+## Author: Wolfina
 ## SavedVariables: TarotDB
 Tarot.xml
 Tarot.lua
