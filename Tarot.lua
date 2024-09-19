@@ -113,48 +113,35 @@ local function SetGameToolTipScript(frame, text)
     end)
 end
 
---- Frames and textures for the 3 cards to show on screen
--- LEFT CARD
-local TarotLeftCardFrame = CreateFrame("Frame", "TarotLeftCardFrame", UIParent)
-TarotLeftCardFrame:Hide()
-TarotLeftCardFrame:SetSize(300, 527)
-TarotLeftCardFrame:SetPoint("CENTER", UIParent, "CENTER", -400, 0)
-TarotLeftCardFrame:SetScript("OnLeave", function(self)
-    GameTooltip:Hide()
-end)
 
-local TarotLeftCardFrameTexture = TarotLeftCardFrame:CreateTexture(nil, "ARTWORK")
-TarotLeftCardFrameTexture:SetAllPoints(TarotLeftCardFrame)
-TarotLeftCardFrameTexture:SetTexCoord(0, 1, 0, 1)
+local cardFrames = {}
+local cardFrameTextures = {}
+local frameWidths = { -400, 0, 400}
+for i = 1, 3 do
+    table.insert(cardFrames, CreateFrame("Frame", "TarotFrame" .. i, UIParent))
+    cardFrames[i]:Hide()
+    cardFrames[i]:SetSize(300, 527)
+    cardFrames[i]:SetPoint("CENTER", UIParent, "CENTER", frameWidths[i], 0)
+    cardFrames[i]:SetScript("OnLeave", function(self)
+        GameTooltip:Hide()
+    end)
 
--- MIDDLE CARD
-local TarotMiddleCardFrame = CreateFrame("Frame", "TarotSingleCardFrame", UIParent)
-TarotMiddleCardFrame:Hide()
-TarotMiddleCardFrame:SetSize(300, 527)
-TarotMiddleCardFrame:SetPoint("CENTER", UIParent, "CENTER")
-TarotMiddleCardFrame:SetScript("OnLeave", function(self)
-    GameTooltip:Hide()
-end)
+    table.insert(cardFrameTextures, cardFrames[i]:CreateTexture(nil, "ARTWORK"))
+    cardFrameTextures[i]:SetAllPoints(cardFrames[i])
+    cardFrameTextures[i]:SetTexCoord(0, 1, 0, 1)
+end
 
-local TarotMiddleCardFrameTexture = TarotMiddleCardFrame:CreateTexture(nil, "ARTWORK")
-TarotMiddleCardFrameTexture:SetAllPoints(TarotMiddleCardFrame)
-TarotMiddleCardFrameTexture:SetTexCoord(0, 1, 0, 1)
-
--- RIGHT CARD
-local TarotRightCardFrame = CreateFrame("Frame", "TarotRightCardFrame", UIParent)
-TarotLeftCardFrame:Hide()
-TarotRightCardFrame:SetSize(300, 527)
-TarotRightCardFrame:SetPoint("CENTER", UIParent, "CENTER", 400, 0)
-TarotRightCardFrame:SetScript("OnLeave", function(self)
-    GameTooltip:Hide()
-end)
-
-local TarotRightCardFrameTexture = TarotRightCardFrame:CreateTexture(nil, "ARTWORK")
-TarotRightCardFrameTexture:SetAllPoints(TarotRightCardFrame)
-TarotRightCardFrameTexture:SetTexCoord(0, 1, 0, 1)
+--- Hides all the frames
+function HideAllCards()
+    cardFrames[1]:Hide()
+    for i, card in pairs(cardFrames) do
+        cardFrames[i]:Hide()
+    end
+end
 
 --- Generates a single card, sets the texture, and displays it
 function GenerateSingleCard(say, party)
+    local TarotMiddleCardFrameTexture, TarotMiddleCardFrame = cardFrameTextures[2], cardFrames[2]
     local reversed = false
     if(TarotDB.ReverseEnabled) then
         reversed = math.random() < 0.5
@@ -181,91 +168,66 @@ function GenerateSingleCard(say, party)
     end
 end
 
---- Hides all the frames
-function HideAllCards()
-    TarotLeftCardFrame:Hide()
-    TarotMiddleCardFrame:Hide()
-    TarotRightCardFrame:Hide()
+for _, card in pairs(cardFrames) do
+    card:SetScript("OnMouseDown", HideAllCards)
 end
-TarotRightCardFrame:SetScript("OnMouseDown", HideAllCards)
-TarotMiddleCardFrame:SetScript("OnMouseDown", HideAllCards)
-TarotLeftCardFrame:SetScript("OnMouseDown", HideAllCards)
 
 --- Generates 3 cards, sets the textures, and displays them
---- This function is really dirty, but I had a bunch of issues trying to clean it up
---- TO:DO Clean this up
 function GenerateThreeCards(say, party)
     local drawnCards = {}
-    local cardSet = {}
 
     -- Draw cards until we have three unique ones
     while #drawnCards < 3 do
         local newCard = GetRandomCard()
-        if not cardSet[newCard.CardName] ~= nil then
-            table.insert(drawnCards, newCard)
-            cardSet[newCard.CardName] = true
+        local duplicate = false
+        for _, card in pairs(drawnCards) do
+            if(card.CardName == newCard.CardName) then
+                duplicate = true
+            end
         end
+        if not duplicate then
+            table.insert(drawnCards, newCard)
+        end
+
     end
 
     local reversed = {math.random() < 0.5, math.random() < 0.5, math.random() < 0.5}
-    if(TarotDB.ReverseEnabled) then
-        if(reversed[1]) then
-            TarotLeftCardFrameTexture:SetTexCoord(1, 0, 1, 0)
-            SetGameToolTipScript(TarotLeftCardFrame, drawnCards[1].ReversedDescription)
+    for i, frame in pairs(cardFrames) do
+        if(TarotDB.ReverseEnabled) then
+            if(reversed[i]) then
+                cardFrameTextures[i]:SetTexCoord(1, 0, 1, 0)
+                SetGameToolTipScript(cardFrames[i], drawnCards[i].ReversedDescription)
+            else
+                cardFrameTextures[i]:SetTexCoord(0, 1, 0, 1)
+                SetGameToolTipScript(cardFrames[i], drawnCards[i].Description)
+            end
         else
-            TarotLeftCardFrameTexture:SetTexCoord(0, 1, 0, 1)
-            SetGameToolTipScript(TarotLeftCardFrame, drawnCards[1].Description)
+            cardFrameTextures[i]:SetTexCoord(0, 1, 0, 1)
+            SetGameToolTipScript(cardFrames[i], drawnCards[i].Description)
         end
 
-        if(reversed[2]) then
-            TarotMiddleCardFrameTexture:SetTexCoord(1, 0, 1, 0)
-            SetGameToolTipScript(TarotMiddleCardFrame, drawnCards[2].ReversedDescription)
-        else
-            TarotMiddleCardFrameTexture:SetTexCoord(0, 1, 0, 1)
-            SetGameToolTipScript(TarotMiddleCardFrame, drawnCards[2].Description)
-        end
+        cardFrameTextures[i]:SetTexture("Interface\\AddOns\\Tarot\\res\\Cards\\" .. drawnCards[i].FileLocation .. ".png")
+        frame:Show()
 
-        if(reversed[3]) then
-            TarotRightCardFrameTexture:SetTexCoord(1, 0, 1, 0)
-            SetGameToolTipScript(TarotRightCardFrame, drawnCards[3].ReversedDescription)
-        else
-            TarotRightCardFrameTexture:SetTexCoord(0, 1, 0, 1)
-            SetGameToolTipScript(TarotRightCardFrame, drawnCards[3].Description)
-        end
-
-    else
-        TarotLeftCardFrameTexture:SetTexCoord(0, 1, 0, 1)
-        SetGameToolTipScript(TarotLeftCardFrame, drawnCards[1].Description)
-        TarotMiddleCardFrameTexture:SetTexCoord(0, 1, 0, 1)
-        SetGameToolTipScript(TarotMiddleCardFrame, drawnCards[2].Description)
-        TarotRightCardFrameTexture:SetTexCoord(0, 1, 0, 1)
-        SetGameToolTipScript(TarotRightCardFrame, drawnCards[3].Description)
     end
-
-    -- Set textures for the drawn cards
-    TarotLeftCardFrameTexture:SetTexture("Interface\\AddOns\\Tarot\\res\\Cards\\" .. drawnCards[1].FileLocation .. ".png")
-    TarotMiddleCardFrameTexture:SetTexture("Interface\\AddOns\\Tarot\\res\\Cards\\" .. drawnCards[2].FileLocation .. ".png")
-    TarotRightCardFrameTexture:SetTexture("Interface\\AddOns\\Tarot\\res\\Cards\\" .. drawnCards[3].FileLocation .. ".png")
-
-    -- Show the card frames
-    TarotLeftCardFrame:Show()
-    TarotMiddleCardFrame:Show()
-    TarotRightCardFrame:Show()
-
-    -- Send messages for the drawn cards
     for i, card in pairs(drawnCards) do
-        print(card.CardName)
         local message = ""
-        if(reversed[i]) then
-            message = "I draw reversed " .. card.CardName .. ", " .. card.ReversedQuip
+        if TarotDB.ReverseEnabled then
+            if(reversed[i]) then
+                message = "I draw reversed " .. card.CardName .. ", " .. card.ReversedQuip
+            else
+                message = "I draw " .. card.CardName .. ", " .. card.Quip
+            end
         else
             message = "I draw " .. card.CardName .. ", " .. card.Quip
         end
+
         if say then
             SendChatMessage(message, "SAY")
         elseif party then
             SendChatMessage(message, "PARTY")
         end
+
     end
 end
 
